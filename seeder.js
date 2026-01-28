@@ -5,6 +5,14 @@ const Booking = require('./models/Booking');
 
 dotenv.config();
 
+const randomFutureDate = (hour, minute = 0) => {
+  const daysAhead = Math.floor(Math.random() * 7); // next 7 days
+  const date = new Date();
+  date.setDate(date.getDate() + daysAhead);
+  date.setHours(hour, minute, 0, 0);
+  return date;
+};
+
 const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI, {
@@ -40,8 +48,8 @@ const buses = [
         name: 'Neeta Travels',
         source: 'Mumbai',
         destination: 'Pune',
-        departureTime: new Date(new Date().setHours(7, 0, 0, 0)), // Today 7:00 AM
-        arrivalTime: new Date(new Date().setHours(10, 30, 0, 0)),
+        departureTime: new Date(Date.now() + 2 * 60 * 60 * 1000),
+        arrivalTime: new Date(Date.now() + 5 * 60 * 60 * 1000),
         price: 450,
         type: 'AC Seater',
         amenities: ['Water', 'Charging Point', 'Reading Light'],
@@ -52,8 +60,8 @@ const buses = [
         name: 'Purple Metrolink',
         source: 'Mumbai',
         destination: 'Pune',
-        departureTime: new Date(new Date().setHours(18, 0, 0, 0)), // Today 6:00 PM
-        arrivalTime: new Date(new Date().setHours(21, 45, 0, 0)),
+        departureTime: new Date(Date.now() + 2 * 60 * 60 * 1000),
+        arrivalTime: new Date(Date.now() + 5 * 60 * 60 * 1000),
         price: 550,
         type: 'Volvo',
         amenities: ['WiFi', 'Water', 'Blanket'],
@@ -64,8 +72,8 @@ const buses = [
         name: 'ZingBus',
         source: 'Delhi',
         destination: 'Jaipur',
-        departureTime: new Date(new Date().setHours(6, 0, 0, 0)),
-        arrivalTime: new Date(new Date().setHours(11, 0, 0, 0)),
+        departureTime: new Date(Date.now() + 2 * 60 * 60 * 1000),
+        arrivalTime: new Date(Date.now() + 5 * 60 * 60 * 1000),
         price: 600,
         type: 'AC Sleeper',
         amenities: ['WiFi', 'Charging Point', 'TV', 'Blanket'],
@@ -76,8 +84,8 @@ const buses = [
         name: 'VRL Logistics',
         source: 'Mumbai',
         destination: 'Goa',
-        departureTime: new Date(new Date().setHours(20, 0, 0, 0)),
-        arrivalTime: new Date(new Date().setHours(32, 0, 0, 0)), // Next day 8 AM roughly
+        departureTime: new Date(Date.now() + 2 * 60 * 60 * 1000),
+        arrivalTime: new Date(Date.now() + 5 * 60 * 60 * 1000),
         price: 1200,
         type: 'AC Sleeper',
         amenities: ['WiFi', 'Water', 'Blanket', 'Dinner Stop'],
@@ -88,8 +96,8 @@ const buses = [
         name: 'IntrCity SmartBus',
         source: 'Delhi',
         destination: 'Manali',
-        departureTime: new Date(new Date().setHours(19, 30, 0, 0)),
-        arrivalTime: new Date(new Date().setHours(33, 30, 0, 0)),
+        departureTime: new Date(Date.now() + 2 * 60 * 60 * 1000),
+        arrivalTime: new Date(Date.now() + 5 * 60 * 60 * 1000),
         price: 1500,
         type: 'Volvo',
         amenities: ['WiFi', 'Clean Toilet', 'Water', 'Blanket'],
@@ -100,8 +108,8 @@ const buses = [
         name: 'Shivneri (MSRTC)',
         source: 'Pune',
         destination: 'Mumbai',
-        departureTime: new Date(new Date().setHours(6, 0, 0, 0)),
-        arrivalTime: new Date(new Date().setHours(9, 30, 0, 0)),
+        departureTime: new Date(Date.now() + 2 * 60 * 60 * 1000),
+        arrivalTime: new Date(Date.now() + 5 * 60 * 60 * 1000),
         price: 500,
         type: 'Volvo',
         amenities: ['Water', 'Newspaper'],
@@ -113,8 +121,8 @@ const buses = [
         name: 'Hans Travels',
         source: 'Mumbai',
         destination: 'Pune',
-        departureTime: new Date(new Date().setHours(8, 0, 0, 0)),
-        arrivalTime: new Date(new Date().setHours(11, 45, 0, 0)),
+       departureTime: new Date(Date.now() + 2 * 60 * 60 * 1000),
+        arrivalTime: new Date(Date.now() + 5 * 60 * 60 * 1000),
         price: 400,
         type: 'Non-AC Seater',
         amenities: ['Charging Point'],
@@ -125,8 +133,8 @@ const buses = [
         name: 'Paulo Travels',
         source: 'Mumbai',
         destination: 'Goa',
-        departureTime: new Date(new Date().setHours(21, 0, 0, 0)),
-        arrivalTime: new Date(new Date().setHours(33, 0, 0, 0)),
+       departureTime: new Date(Date.now() + 2 * 60 * 60 * 1000),
+        arrivalTime: new Date(Date.now() + 5 * 60 * 60 * 1000),
         price: 1100,
         type: 'AC Sleeper',
         amenities: ['WiFi', 'Blanket'],
@@ -137,8 +145,8 @@ const buses = [
         name: 'Gujarat Travels',
         source: 'Mumbai',
         destination: 'Ahmedabad',
-        departureTime: new Date(new Date().setHours(22, 0, 0, 0)),
-        arrivalTime: new Date(new Date().setHours(30, 0, 0, 0)),
+        departureTime: new Date(Date.now() + 2 * 60 * 60 * 1000),
+        arrivalTime: new Date(Date.now() + 5 * 60 * 60 * 1000),
         price: 900,
         type: 'AC Sleeper',
         amenities: ['Charging Point', 'Reading Light'],
@@ -149,8 +157,8 @@ const buses = [
         name: 'Shrinath Travels',
         source: 'Delhi',
         destination: 'Jaipur',
-        departureTime: new Date(new Date().setHours(23, 0, 0, 0)),
-        arrivalTime: new Date(new Date().setHours(28, 0, 0, 0)), // 4 AM next day
+        departureTime: new Date(Date.now() + 2 * 60 * 60 * 1000),
+        arrivalTime: new Date(Date.now() + 5 * 60 * 60 * 1000),
         price: 550,
         type: 'AC Sleeper',
         amenities: ['Blanket'],
