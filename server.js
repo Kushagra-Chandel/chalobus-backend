@@ -21,7 +21,7 @@ const app = express();
 // ---------------- SECURITY MIDDLEWARES ----------------
 app.use(helmet());              // Secure headers
 app.use(express.json());       // Body parser
-app.use(mongoSanitize());
+//app.use(mongoSanitize());
 app.use(xss());                // Prevent XSS
 //app.use(hpp());                // Prevent parameter pollution
 // HTTP request logging
