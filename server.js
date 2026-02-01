@@ -1,7 +1,7 @@
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 //const mongoSanitize = require('express-mongo-sanitize');
-const xss = require('xss-clean');
+//const xss = require('xss-clean');
 const hpp = require('hpp');
 const express = require('express');
 const dotenv = require('dotenv');
@@ -22,7 +22,7 @@ const app = express();
 app.use(helmet());              // Secure headers
 app.use(express.json());       // Body parser
 //app.use(mongoSanitize());
-app.use(xss());                // Prevent XSS
+//app.use(xss());                // Prevent XSS
 //app.use(hpp());                // Prevent parameter pollution
 // HTTP request logging
 app.use(
